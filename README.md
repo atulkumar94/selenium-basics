@@ -62,6 +62,7 @@ After each test it calls `driver.quit()`. Because each test gets its own browser
 
 | # | Class | Topic | What the tests show |
 |---|-------|-------|---------------------|
+<<<<<<< HEAD
 | S1 | [S01SessionLifecycleTest](src/test/java/com/selenium/basics/S01SessionLifecycleTest.java) | WebDriver architecture and session lifecycle | Opening a page, reading the title and URL, using back, forward and refresh |
 | S2 | [S02LocatorsTest](src/test/java/com/selenium/basics/S02LocatorsTest.java) | Locators | `className`, `cssSelector`, `xpath`, `tagName`, `linkText`, `partialLinkText`, `id`, `name`, `findElements`, Selenium 4 relative locators |
 | S3 | [S03FormsTest](src/test/java/com/selenium/basics/S03FormsTest.java) | WebElement state and forms | `clear` and `sendKeys`, `getDomProperty`, checkbox `isSelected`, submit buttons |
