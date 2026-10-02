@@ -2,7 +2,9 @@ package com.selenium.basics;
 
 import java.time.Duration;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -22,8 +24,9 @@ class S12ExceptionsTest extends BaseTest {
         driver.get(SITE_URL);
         // Turn off the 5s implicit wait from BaseTest so the lookup fails right away.
         driver.manage().timeouts().implicitlyWait(Duration.ZERO);
-        assertThrows(NoSuchElementException.class,
+        NoSuchElementException e = assertThrows(NoSuchElementException.class,
                 () -> driver.findElement(By.id("definitely-not-present")));
+        assertNotNull(e.getMessage());
     }
 
     @Test
@@ -33,8 +36,10 @@ class S12ExceptionsTest extends BaseTest {
         // A short wait keeps the test fast. Explicit waits throw TimeoutException,
         // not NoSuchElementException, when the condition is still false at the end.
         WebDriverWait shortWait = new WebDriverWait(driver, Duration.ofSeconds(2));
-        assertThrows(TimeoutException.class,
+        TimeoutException e = assertThrows(TimeoutException.class,
                 () -> shortWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("never-appears"))));
+        // The message names the condition that timed out, which is what you read when debugging.
+        assertTrue(e.getMessage().contains("never-appears"));
     }
 
     @Test
@@ -45,6 +50,7 @@ class S12ExceptionsTest extends BaseTest {
         // A reload builds a new DOM, so the old reference points to a node that no
         // longer exists. The fix is to find the element again.
         driver.navigate().refresh();
-        assertThrows(StaleElementReferenceException.class, stale::getText);
+        StaleElementReferenceException e = assertThrows(StaleElementReferenceException.class, stale::getText);
+        assertNotNull(e.getMessage());
     }
 }

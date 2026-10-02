@@ -45,7 +45,7 @@ public abstract class BaseTest {
     protected File downloadDir;
 
     @BeforeEach
-    void setUp() {
+    protected void setUp() {
         downloadDir = new File("target/downloads");
         downloadDir.mkdirs();
 
@@ -64,7 +64,7 @@ public abstract class BaseTest {
     }
 
     @AfterEach
-    void tearDown() {
+    protected void tearDown() {
         // quit() ends the whole session and closes every window; close() would only
         // close the current window and leave the driver process running.
         if (driver != null) {
